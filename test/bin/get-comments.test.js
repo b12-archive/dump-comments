@@ -1,5 +1,6 @@
 const {resolve} = require('path');
 const {execFile} = require('child_process');
+const {isArray} = Array;
 
 const tape = require('tape-catch');
 const test = require('1-liners/test');
@@ -58,5 +59,26 @@ tape(title('Prints usage'), (is) => {
       test(stdout, /SYNOPSIS/),
       '…and prints manpage-like help'
     );
+  });
+});
+
+tape(title('Works for a single file'), (is) => {
+  $getComments(['one.js'], {cwd}, (error, output) => {
+    is.equal(error, null,
+      '`get-comments <single file>` succeeds'
+    );
+
+    let outputData;
+    is.doesNotThrow(
+      () => outputData = JSON.parse(output),
+      'returns a valid JSON…'
+    );
+
+    is.ok(
+      isArray(outputData),
+      '…array'
+    );
+
+    is.end();
   });
 });
