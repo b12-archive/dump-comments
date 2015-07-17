@@ -29,3 +29,25 @@ if (
   stderr.write(require('./help/usage'));
   exit(1);
 }
+
+// Read and process files
+
+const {readFile} = require('fs');
+const {resolve} = require('path');
+
+const getComments = require('get-comments');
+const async = require('async');
+
+async.reduce(files, [], (result, file, done) => {
+  readFile(resolve(file), {encoding: 'utf-8'}, (error, contents) => {
+    if (error) return done(error);
+    done(null, result.concat(
+      getComments(contents, true)
+    ));
+  });
+}, (error, result) => {
+  if (error) throw error;
+
+  stdout.write(JSON.stringify(result) + '\n');
+  exit(0);
+});
