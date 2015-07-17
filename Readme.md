@@ -20,7 +20,7 @@
 get-comments-cli
 ================
 
-**…**
+**Dump raw comments from JavaScript files as JSON.**
 
 
 **⚠ Heads up!** This is totally a work in progress. [Thoughts and ideas][] are very welcome.
