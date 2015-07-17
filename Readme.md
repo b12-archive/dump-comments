@@ -43,7 +43,8 @@ $ npm install get-comments-cli
 Usage
 -----
 
-<!-- @doxie.injext start --><!-- @doxie.injext end -->
+<!-- @doxie.injext start -->
+<!-- @doxie.injext end -->
 
 
 
