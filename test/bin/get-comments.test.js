@@ -76,7 +76,12 @@ tape(title('Works for a single file'), (is) => {
 
     is.ok(
       isArray(outputData),
-      '…array'
+      '…array…'
+    );
+
+    is.equal(outputData.length,
+      2,
+      '…with one item per comment'
     );
 
     is.end();
