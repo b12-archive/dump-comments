@@ -1,3 +1,3 @@
 export default
-`Usage: get-comments [options] ...<source>
+`Usage: dump-comments [options] ...<source>
 `;

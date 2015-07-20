@@ -8,16 +8,16 @@ const plus = require('1-liners/plus');
 const curry = require('1-liners/curry');
 
 const title = curry(plus)('The CLI program:  ');
-const getComments = resolve(__dirname, '../../module/bin/get-comments.js');
-const $getComments = curry(execFile)(getComments);
+const dumpComments = resolve(__dirname, '../../module/bin/dump-comments.js');
+const $dumpComments = curry(execFile)(dumpComments);
 const cwd = resolve(__dirname, '../mock-cwd');
 
 tape(title('Prints usage'), (is) => {
   is.plan(8);
 
-  $getComments([], (error, _, stderr) => {
+  $dumpComments([], (error, _, stderr) => {
     is.equal(error && error.code, 1,
-      '`get-comments` fails…'
+      '`dump-comments` fails…'
     );
 
     is.ok(
@@ -26,10 +26,10 @@ tape(title('Prints usage'), (is) => {
     );
   });
 
-  $getComments(['--invalid', '--options', 'one.js'], {cwd},
+  $dumpComments(['--invalid', '--options', 'one.js'], {cwd},
     (error, _, stderr) => {
       is.equal(error && error.code, 1,
-        '`get-comments --invalid --options one.js` fails…'
+        '`dump-comments --invalid --options one.js` fails…'
       );
 
       is.ok(
@@ -39,9 +39,9 @@ tape(title('Prints usage'), (is) => {
     }
   );
 
-  $getComments(['-h'], (error, stdout) => {
+  $dumpComments(['-h'], (error, stdout) => {
     is.equal(error, null,
-      '`get-comments -h` succeeds…'
+      '`dump-comments -h` succeeds…'
     );
 
     is.ok(
@@ -50,9 +50,9 @@ tape(title('Prints usage'), (is) => {
     );
   });
 
-  $getComments(['--help'], (error, stdout) => {
+  $dumpComments(['--help'], (error, stdout) => {
     is.equal(error, null,
-      '`get-comments --help` succeeds…'
+      '`dump-comments --help` succeeds…'
     );
 
     is.ok(
@@ -63,9 +63,9 @@ tape(title('Prints usage'), (is) => {
 });
 
 tape(title('Works for a single file'), (is) => {
-  $getComments(['one.js'], {cwd}, (error, output) => {
+  $dumpComments(['one.js'], {cwd}, (error, output) => {
     is.equal(error, null,
-      '`get-comments <single file>` succeeds'
+      '`dump-comments <single file>` succeeds'
     );
 
     let outputData;
